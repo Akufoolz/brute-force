@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Honey Bunny</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            font-size: 62.5%
+        }
+
+        body {
+            background-color: #222;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 3.2rem;
+            padding: 3.2rem
+        }
+
+        .text-pink {
+            color: palevioletred;
+        }
+
+        .text-teal {
+            color: teal;
+        }
+
+        .text-bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div class="text-pink">
+            <p>
+                {{ target }}
+            </p>
+            <p>
+                {{ display }}
+            </p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+    <script>
+
+        var app = new Vue({
+            el: '#app',
+            data: {
+                target: "HELLO",
+                display: ""
+            },
+            methods: {
+                fillDisplay: function () {
+                    // Fill test string with zeros equaling length of target.
+                    for (let i = 0; i < this.target.length; i++) {
+                        this.display = this.display + "!";
+                    }
+                },
+                bruteForce: function () {
+                    var v = this;
+                    setInterval(function () {
+                    }, 1000)
+                }
+            },
+            mounted() {
+                this.fillDisplay();
+                this.bruteForce();
+            }
+        });
+
+        function bruteForce(target) {
+            let test = "";
+            let display = document.getElementById('display');
+
+            // Fill test string with zeros equaling length of target.
+            for (let i = 0; i < target.length; i++) {
+                test = test + "!";
+            }
+
+            // Iterate over each characeter in the target string.
+            for (let i = 0; i < target.length; i++) {
+                (function (i) {
+                    setInterval(function () {
+                        const el = target[i];
+                        // Try matching every char to target char until match is found.
+                        console.log(el);
+
+                    }, 1000)
+                })(i);
+            }
+        }
+
+        function charTest() {
+            let display = document.getElementById('display');
+            for (let i = 33; i < 127; i++) {
+                display.innerText = display.innerText + String.fromCharCode(i);
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
