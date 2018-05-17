@@ -39,14 +39,12 @@
 
 <body>
     <div id="app">
-        <div class="text-pink">
-            <p>
-                {{ target }}
-            </p>
-            <p>
-                {{ display }}
-            </p>
-        </div>
+        <p class="text-pink">
+            Target: {{ target }}
+        </p>
+        <p class="text-pink">
+            Result: {{ display }}
+        </p>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
@@ -54,59 +52,45 @@
 
     <script>
 
-        var app = new Vue({
+        var vm = new Vue({
             el: '#app',
             data: {
-                target: "HELLO",
+                target: "I love my Honey Bunny!",
+                holder: "",
                 display: ""
             },
             methods: {
-                fillDisplay: function () {
-                    // Fill test string with zeros equaling length of target.
-                    for (let i = 0; i < this.target.length; i++) {
-                        this.display = this.display + "!";
-                    }
-                },
                 bruteForce: function () {
-                    var v = this;
+                    // Iterate over each characeter in the target string.
+                    for (let i = 0; i < this.target.length; i++) {
+                        let el = this.target[i];
+                        // Compare each character to all potential characters.
+                        for (let j = 32; j < 127; j++) { // 32 - 126 = ASCII alphanumeric and common symbols codes
+                            let ch = String.fromCharCode(j);
+                            if (el == ch) {
+                                this.holder += ch;
+                            }
+                        }
+                    }
+
+                },
+                prettyDisplay: function () {
+                    let v = this;
+                    let counter = 0;
                     setInterval(function () {
-                    }, 1000)
+                        if (v.display.length < v.holder.length) {
+                            v.display += v.holder[counter];
+                            counter++;
+                            console.log(counter);
+                        }
+                    }, 150);
                 }
             },
             mounted() {
-                this.fillDisplay();
-                this.bruteForce();
+                this.bruteForce(this.target, this.textHold);
+                this.prettyDisplay();
             }
         });
-
-        function bruteForce(target) {
-            let test = "";
-            let display = document.getElementById('display');
-
-            // Fill test string with zeros equaling length of target.
-            for (let i = 0; i < target.length; i++) {
-                test = test + "!";
-            }
-
-            // Iterate over each characeter in the target string.
-            for (let i = 0; i < target.length; i++) {
-                (function (i) {
-                    setInterval(function () {
-                        const el = target[i];
-                        // Try matching every char to target char until match is found.
-                        console.log(el);
-
-                    }, 1000)
-                })(i);
-            }
-        }
-
-        function charTest() {
-            let display = document.getElementById('display');
-            for (let i = 33; i < 127; i++) {
-                display.innerText = display.innerText + String.fromCharCode(i);
-            }
-        }
 
     </script>
 
